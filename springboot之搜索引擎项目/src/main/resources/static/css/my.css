@@ -1,0 +1,106 @@
+
+*{
+	margin: 0;
+	padding: 0;
+}
+.out{
+	width:500px;
+	height:140px;
+	margin: 160px 450px;
+}
+#ser_box{
+	width:500px;
+	height:32px;
+	border: 1px solid blue;
+	text-align: center;
+}
+#ipt{
+	width:480px;
+	height: 26px;
+	margin-top: 2px;
+	border: 0;
+	outline: 0;
+	font-family: "微软雅黑";
+	font-size: 16px;
+}
+
+#bot_box{
+	width:500px;
+	border: 1px solid #4C9ED9;
+	border-top: none;
+	display: none;
+	}
+	
+#bot_box ul li{
+		list-style: none;
+		line-height: 25px;
+		padding-left: 10px;
+		}
+#bot_box ul li:hover{
+		background: #BCBCBC;
+		}		
+.s_btn {
+	position:relative;
+	left:300px;
+	top:-31px;
+    width: 100px;
+    height: 36px;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background: #3385ff;
+    border-bottom: 1px solid #2d78f4;
+    outline: medium;
+}
+  
+.sel{
+	background:#BCBCBC;
+}
+i{list-style-type:none;}
+
+/**分页*!*/
+.page-bar{
+	margin:40px auto;
+	margin-top: 150px;
+
+}
+ul,li{
+	margin: 0px;
+	padding: 0px;
+}
+li{
+	list-style: none
+}
+.page-bar li:first-child>a {
+	margin-left: 0px
+}
+.page-bar a{
+	border: 1px solid #ddd;
+	text-decoration: none;
+	position: relative;
+	float: left;
+	padding: 6px 12px;
+	margin-left: -1px;
+	line-height: 1.42857143;
+	color: #5D6062;
+	cursor: pointer;
+	margin-right: 20px;
+}
+.page-bar a:hover{
+	background-color: #eee;
+}
+.page-bar a.banclick{
+	cursor:not-allowed;
+}
+.page-bar .active a{
+	color: #fff;
+	cursor: default;
+	background-color: #E96463;
+	border-color: #E96463;
+}
+.page-bar i{
+	font-style:normal;
+	color: #d44950;
+	margin: 0px 4px;
+	font-size: 12px;
+}

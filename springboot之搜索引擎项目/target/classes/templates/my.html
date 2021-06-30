@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8" />
+	<title>CoCo搜索</title>
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="stylesheet" type="text/css" href="css/my.css" />
+<style>
+	.a{
+		list-style: none;
+	}
+	body{
+		background: url("https://wallpaperm.cmcm.com/2d64f9b1d09b9c519b301d4d721adc0c.jpg");
+	}
+</style>
+</head>
+<body>
+<script>
+	function getInput(){
+		var str=document.getElementById("ipt").value;
+		if (str==''){
+			alert("请输入内容");
+		}
+
+		var cs1=document.getElementById("text");
+		if (cs1.style.color!="red"){
+			cs1.style.color="red";
+		}
+	}
+</script>
+<div class="out" id="app">
+	<p style="text-align:center;color: mediumslateblue;font-size: 30px">CoCo搜索</p><br>
+	<div id="ser_box">
+	<form name="mallSearch" >
+		<input type="search" id="ipt" v-model="keyword" placeholder="请输入关键词" name="fname" value="" style="background-color:transparent;" /><span><button id="su" @click.prevent="searchkey" onclick="getInput()" class="bg s_btn" type="submit" value="提交">搜索</button></span>
+	</form>
+</div>
+
+	<div class="cc">
+
+		<div class="ww" v-if="results!==0">
+			<div v-for="item in results" class="a">
+			<ol>
+
+				<li><p class="b">标题：<a :href="item.link"><em v-html="item.title" ></em></a></p></li>
+				<li>内容：<p v-html="item.content" style="color: #666666"></p></li>
+				<li>阅读量：{{item.read}}</li>
+				<li style="color: #2d78f4">链接：<a :href="item.link" >{{item.link}}</a></li><br>
+			</ol>
+	</div>
+	</div>
+		<div v-if="isShowTip">
+			<p style="color: transparent;font-size: 20px;text-align: center" id="text">很抱歉，没有找到相关的数据内容</p>
+		</div>
+
+</div>
+	<p style="text-align: center"><span id="nowTime"></span></p><br>
+</div>
+<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+	new Vue({
+		el:"#app",
+		data:{
+			keyword:'',
+			results:[],//搜索的结果
+			isShowTip:false
+		}
+		,
+		methods:{
+			searchkey(){
+				let keyword = this.keyword;
+				console.log(keyword);
+				axios.get('search/'+keyword+"/1/300").then(response=>{
+					console.log(response);
+					this.results=response.data;
+					//绑定数据
+				})
+				.catch(function (error)
+				{
+					console.log(error);
+				});
+				if (this.results.length==0){
+					this.isShowTip=true
+				}
+			}
+
+		}
+	})
+	// vm.results.length=2
+</script>
+<script>//获取系统时间
+var newDate = '';
+getLangDate();
+//值小于10时，在前面补0
+function dateFilter(date){
+	if(date < 10){return "0"+date;}
+	return date;
+}
+function getLangDate(){
+	var dateObj = new Date(); //表示当前系统时间的Date对象
+	var year = dateObj.getFullYear(); //当前系统时间的完整年份值
+	var month = dateObj.getMonth()+1; //当前系统时间的月份值
+	var date = dateObj.getDate(); //当前系统时间的月份中的日
+	var day = dateObj.getDay(); //当前系统时间中的星期值
+	var weeks = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+	var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串
+	var hour = dateObj.getHours(); //当前系统时间的小时值
+	var minute = dateObj.getMinutes(); //当前系统时间的分钟值
+	var second = dateObj.getSeconds(); //当前系统时间的秒钟值
+	// var timeValue = "" +((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午" ); //当前时间属于上午、晚上还是下午
+	newDate = dateFilter(year)+"年"+dateFilter(month)+"月"+dateFilter(date)+"日 "+" "+dateFilter(hour)+":"+dateFilter(minute)+":"+dateFilter(second);
+	document.getElementById("nowTime").innerHTML = newDate+"　"+week;
+	setTimeout("getLangDate()",1000);
+}</script>
+</body>
+</html>
+
